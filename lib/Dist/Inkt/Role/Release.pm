@@ -11,7 +11,7 @@ use Moose::Role;
 use Types::Standard -types;
 use namespace::autoclean;
 
-has should_release => ( is => "ro", isa => Bool, default => 0 );
+has should_release_on_build => ( is => "ro", isa => Bool, default => 0, init_arg => "should_release" );
 
 sub Release
 {
@@ -29,7 +29,7 @@ sub Release
 
 after BuildAll => sub {
 	my $self = shift;
-	$self->Release if $self->should_release;
+	$self->Release if $self->should_release_on_build;
 };
 
 1;
