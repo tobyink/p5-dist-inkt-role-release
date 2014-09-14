@@ -4,3 +4,8 @@
 	issued  2014-09-14;
 	label   "Initial release".
 
+`Dist-Inkt-Role-Release 0.002 cpan:TOBYINK`
+	issued  2014-09-14;
+	changeset [
+		item "Add prerelease_action and postrelease_action hooks."^^Addition;
+	].
