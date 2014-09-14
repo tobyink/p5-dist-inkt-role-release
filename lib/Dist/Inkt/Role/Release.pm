@@ -13,6 +13,41 @@ use namespace::autoclean;
 
 has should_release_on_build => ( is => "ro", isa => Bool, default => 0, init_arg => "should_release" );
 
+for my $category (qw( prerelease_action postrelease_action ))
+{
+	has "${category}s" => (
+		traits   => ["Array"],
+		is       => "ro",
+		isa      => ArrayRef[CodeRef],
+		default  => sub { [] },
+		handles  => { "setup_${category}" => "push" },
+		init_arg => undef,
+		lazy     => 1,
+	);
+	
+	has "skip_${category}s" => (
+		is       => "ro",
+		isa      => Bool,
+		default  => 0,
+	);
+}
+
+my $_run = sub
+{
+	my $self = shift;
+	my $type = $_[0] . "s";
+	(my $label = $type) =~ s/_/ /g;
+	
+	return unless @{$self->$type};
+	return $self->log("Skipping $label") if $self->${\ "skip_$type" };
+	$self->log("Running $label...");
+	
+	for my $test (@{ $self->$type })
+	{
+		$self->$test();
+	}
+};
+
 sub Release
 {
 	my $self = shift;
@@ -20,11 +55,15 @@ sub Release
 	
 	-f $file or $self->BuildTarball($_[0]);
 	
+	$self->$_run("prerelease_action");
+	
 	if (system("cpan-upload", $file))
 	{
 		$self->log("Could not upload to CPAN!");
 		die("cpan-upload failed; stopping");
 	}
+	
+	$self->$_run("postrelease_action");
 }
 
 after BuildAll => sub {
