@@ -15,7 +15,7 @@ has should_release => ( is => "ro", isa => Bool, default => 0 );
 
 sub Release
 {
-	my $self = shift;	
+	my $self = shift;
 	my $file = Path::Tiny::path($_[0] || sprintf('%s.tar.gz', $self->targetdir));
 	
 	-f $file or $self->BuildTarball($_[0]);
