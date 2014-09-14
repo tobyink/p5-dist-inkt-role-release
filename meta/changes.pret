@@ -9,3 +9,9 @@
 	changeset [
 		item "Add prerelease_action and postrelease_action hooks."^^Addition;
 	].
+
+`Dist-Inkt-Role-Release 0.003 cpan:TOBYINK`
+	issued  2014-09-14;
+	changeset [
+		item "Add repo link."^^Packaging;
+	].
