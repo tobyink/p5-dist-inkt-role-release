@@ -81,7 +81,7 @@ __END__
 
 =head1 NAME
 
-Dist::Inkt::Role::Release - automatically upload a distrbution to the CPAN
+Dist::Inkt::Role::Release - automatically upload a distribution to the CPAN
 
 =head1 SYNOPSIS
 
