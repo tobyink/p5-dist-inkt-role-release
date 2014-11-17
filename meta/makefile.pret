@@ -3,7 +3,7 @@
 @prefix : <http://ontologi.es/doap-deps#>.
 
 `Dist-Inkt-Role-Release`
-	:runtime-requirement    [ :on "CPAN::Uploader"^^:CpanId ];
+	:runtime-requirement    [ :on "Alt::CPAN::Uploader::tinyua"^^:CpanId ];
 	:runtime-requirement    [ :on "Dist::Inkt"^^:CpanId ];
 	:runtime-requirement    [ :on "Moose::Role"^^:CpanId ];
 	:runtime-requirement    [ :on "Types::Standard"^^:CpanId ];
